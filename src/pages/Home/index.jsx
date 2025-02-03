@@ -47,7 +47,7 @@ function Home() {
 
         if (howMoney && selected && selectedTwo) {
             setResult((parseFloat(howMoney) * (selectedTwo.Rate / selected.Rate)).toFixed(2));
-        }        
+        }
     }
 
     const filteredCurrencies = currency.filter(data =>
@@ -116,15 +116,22 @@ function Home() {
                                         <div className="manyFlags">
                                             {
                                                 filteredCurrencies.length > 0 && filteredCurrencies.map((data, index) => (
-                                                    <div className='manyFlag' key={index} onClick={() => {handleSelectCurrency(data); setOpen(false)}} role='option' tabIndex="0" onKeyDown={(e) => {
-                                                        if (e.key === "Enter" || e.key === " ") {
-                                                            handleSelectCurrency(data)
-                                                            setOpen(false)
-                                                        }
-                                                    }}>
+                                                    <div className='manyFlag'
+                                                        key={index}
+                                                        onClick={() => { handleSelectCurrency(data); setOpen(false) }}
+                                                        onMouseDown={() => {handleSelectCurrency(data); setOpen(false)}}
+                                                        role='option'
+                                                        tabIndex="0"
+                                                        onKeyDown={(e) => {
+                                                            if (e.key === "Enter" || e.key === " ") {
+                                                                handleSelectCurrency(data)
+                                                                setOpen(false)
+                                                            }
+                                                        }}>
                                                         <img src={data?.Flag} alt="" />
                                                         <p><strong>{data?.Code}</strong>{" "} {data?.Currency}</p>
                                                     </div>
+
                                                 ))
                                             }
                                         </div>
@@ -160,14 +167,20 @@ function Home() {
                                     openTwo && <>
                                         <div className="manyFlags">
                                             {filteredCurrenciesTwo.map((data, index) => (
-                                                <div key={index} className="manyFlag" onClick={() => {handleSelectCurrencyTwo(data); setOpenTwo(false)}} role='option' tabIndex="0" onKeyDown={(e) => {
-                                                    if (e.key === "Enter" || e.key === " ") {
-                                                        handleSelectCurrencyTwo(data)
-                                                        setOpenTwo(false)
-                                                    }
-                                                }}>
+                                                <div className='manyFlag'
+                                                    key={index}
+                                                    onClick={() => { handleSelectCurrencyTwo(data); setOpenTwo(false) }}
+                                                    onMouseDown={() => {handleSelectCurrencyTwo(data); setOpenTwo(false)}}
+                                                    role='option'
+                                                    tabIndex="0" 
+                                                    onKeyDown={(e) => {
+                                                        if (e.key === "Enter" || e.key === " ") {
+                                                            handleSelectCurrencyTwo(data)
+                                                            setOpenTwo(false)
+                                                        }
+                                                    }}>
                                                     <img src={data?.Flag} alt="" />
-                                                    <p><strong>{data?.Code}</strong> {data?.Currency}</p>
+                                                    <p><strong>{data?.Code}</strong>{" "} {data?.Currency}</p>
                                                 </div>
                                             ))}
                                         </div>
