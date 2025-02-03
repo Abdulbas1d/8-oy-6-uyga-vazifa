@@ -22,19 +22,13 @@ function Home() {
         setSelectedTwo(currency[1])
     }, [])
 
-    useEffect(() => {
-        if (howMoney && selected) {
-            setResult((parseFloat(howMoney) * selected.Rate).toFixed(2))
-        }
-    }, [howMoney, selected, selectedTwo])
-
     function handleOpen() {
-        setOpen(true)
+        setOpen(prev => !prev)
         setOpenTwo(false)
     }
 
     function handleOpenTwo() {
-        setOpenTwo(true)
+        setOpenTwo(prev => !prev)
         setOpen(false)
     }
 
@@ -46,6 +40,14 @@ function Home() {
     function handleSelectCurrencyTwo(item) {
         setSelectedTwo(item)
         setOpenTwo(false)
+    }
+
+    function handleCalculate(event) {
+        event.preventDefault()
+
+        if (howMoney && selected && selectedTwo) {
+            setResult((parseFloat(howMoney) * (selectedTwo.Rate / selected.Rate)).toFixed(2));
+        }        
     }
 
     const filteredCurrencies = currency.filter(data =>
@@ -114,7 +116,12 @@ function Home() {
                                         <div className="manyFlags">
                                             {
                                                 filteredCurrencies.length > 0 && filteredCurrencies.map((data, index) => (
-                                                    <div className='manyFlag' key={index} onClick={() => handleSelectCurrency(data)}>
+                                                    <div className='manyFlag' key={index} onClick={() => {handleSelectCurrency(data); setOpen(false)}} role='option' tabIndex="0" onKeyDown={(e) => {
+                                                        if (e.key === "Enter" || e.key === " ") {
+                                                            handleSelectCurrency(data)
+                                                            setOpen(false)
+                                                        }
+                                                    }}>
                                                         <img src={data?.Flag} alt="" />
                                                         <p><strong>{data?.Code}</strong>{" "} {data?.Currency}</p>
                                                     </div>
@@ -153,7 +160,12 @@ function Home() {
                                     openTwo && <>
                                         <div className="manyFlags">
                                             {filteredCurrenciesTwo.map((data, index) => (
-                                                <div key={index} className="manyFlag" onClick={() => handleSelectCurrencyTwo(data)}>
+                                                <div key={index} className="manyFlag" onClick={() => {handleSelectCurrencyTwo(data); setOpenTwo(false)}} role='option' tabIndex="0" onKeyDown={(e) => {
+                                                    if (e.key === "Enter" || e.key === " ") {
+                                                        handleSelectCurrencyTwo(data)
+                                                        setOpenTwo(false)
+                                                    }
+                                                }}>
                                                     <img src={data?.Flag} alt="" />
                                                     <p><strong>{data?.Code}</strong> {data?.Currency}</p>
                                                 </div>
@@ -169,7 +181,7 @@ function Home() {
                     <div className="prices">
                         <h2>{result}</h2>
 
-                        <button className="converter">Converter</button>
+                        <button onClick={handleCalculate} className="converter">Converter</button>
                     </div>
                 </form>
             </div>

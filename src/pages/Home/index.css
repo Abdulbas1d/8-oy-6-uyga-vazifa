@@ -202,6 +202,7 @@
                     background-color: #fff;
                     border-bottom-left-radius: 8px;
                     border-bottom-right-radius: 8px;
+                    cursor: pointer;
 
                     .manyFlag {
                         width: 100%;
@@ -311,6 +312,7 @@
                     background-color: #fff;
                     border-bottom-left-radius: 8px;
                     border-bottom-right-radius: 8px;
+                    cursor: pointer;
 
                     .manyFlag {
                         width: 100%;
